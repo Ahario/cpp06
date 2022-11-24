@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Convert.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/24 12:01:00 by hyeo              #+#    #+#             */
+/*   Updated: 2022/11/24 12:01:01 by hyeo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONVERT_HPP
 #define CONVERT_HPP
 
 #include <iostream>
 #include <string.h>
-
+#include <limits>
 
 class Converter{
     public:
@@ -18,6 +30,7 @@ class Converter{
         void search_type();
     private:
         std::string s;
+        int dec_flag;
 };
 
 #endif
