@@ -11,18 +11,12 @@ class Base{
 };
 
 class A : public Base{
-	private:
-		std::string type = "A";
 };
 
 class B : public Base{
-	private:
-		std::string type = "B";
 };
 
 class C : public Base{
-	private:
-		std::string type = "C";
 };
 
 Base *generate(void);
