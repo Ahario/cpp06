@@ -3,7 +3,9 @@ OBJS = ${SRCS:.cpp=.o}
 CC    = g++
 CFLAGS	= -Wextra -Wall -Werror -std=c++98
 NAME	= a.out
-.cpp.o:		&{CC} &{CFLAGS} -c -o $@ $<
+
+%.o	:	%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all:  ${NAME}
 

@@ -16,6 +16,7 @@ void Converter::start_convert(std::string s)
 {
     this->s = s;
     this->dec_flag = 0;
+    this->zero_flag = 0;
     if (s == "+inf" || s == "+inff")
         pos_inf();
     else if (s == "-inf" || s == "-inff")
@@ -33,16 +34,30 @@ void Converter::search_type()
     int i = 0;
     int j = s.length();
     int none_digit_flag = 0;
+    int this_is_num = 0;
+    int nono = 0;
     if (s.at(i) == '+' || s.at(i) == '-')
         i++;
     while(i != j)
     {
         if (s.at(i) == 'f' && i + 1 == j && std::isdigit(s.at(i - 1)))
+        {
             ft_stof();
+            this_is_num = 1;
+            nono = 1;
+            break;
+        }
         if (s.at(i) == '.')
         {
             i++;
+            if (i == j)
+                break;
             this->dec_flag = 1;
+        }
+        if (this->dec_flag == 1)
+        {
+            if (s.at(i) >= '1' && s.at(i) <= '9')
+                this->zero_flag = 1;
         }
         if (!std::isdigit(s.at(i)))
         {
@@ -51,11 +66,17 @@ void Converter::search_type()
         }
         i++;
     }
-    if (none_digit_flag == 0 && this->dec_flag == 1)
+    if (none_digit_flag == 0 && this->dec_flag == 1 && nono == 0)
+    {
         ft_stod();
-    else if (none_digit_flag == 0 && this->dec_flag == 0)
+        this_is_num = 1;
+    }
+    else if (none_digit_flag == 0 && this->dec_flag == 0 && nono == 0)
+    {
         ft_stoi();
-    else
+        this_is_num = 1;
+    }
+    else if (this_is_num == 0)
         std::cout << "Wrong Input" << std::endl;
 }  
 
@@ -118,7 +139,7 @@ void Converter::ft_stod()
         std::cout << "int: " << "impossible" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(i) << std::endl;
-    if (this->dec_flag == 1)
+    if (this->dec_flag == 1 && this->zero_flag != 0)
     {
         std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
         std::cout << "double: " << i << std::endl;
@@ -147,7 +168,7 @@ void Converter::ft_stof()
         std::cout << "int: " << "impossible" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(i) << std::endl;
-    if (this->dec_flag == 1)
+    if (this->dec_flag == 1 && this->zero_flag != 0)
     {
         std::cout << "float: " << i << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(i) << std::endl;
@@ -181,6 +202,27 @@ void Converter::ft_nan()
     std::cout << "int: impossible" << std::endl;
     std::cout << "float: nanf" << std::endl;
     std::cout << "double: nan" << std::endl;
+}
+
+Converter::Converter()
+{
+}
+
+Converter::~Converter()
+{
+}
+
+Converter::Converter(const Converter& a)
+{
+	*this = a;
+}
+Converter &Converter::operator=(const Converter& a)
+{
+    this->s = a.s;
+    this->dec_flag = a.dec_flag;
+    this->zero_flag = a.zero_flag;
+
+	return (*this);
 }
 
 

@@ -19,6 +19,10 @@
 
 class Converter{
     public:
+        Converter();
+        ~Converter();
+        Converter(const Converter& a);
+		Converter &operator=(const Converter& a);
         void ft_stoc(void);
         void ft_stoi(void);
         void ft_stof(void);
@@ -31,6 +35,7 @@ class Converter{
     private:
         std::string s;
         int dec_flag;
+        int zero_flag;
 };
 
 #endif
